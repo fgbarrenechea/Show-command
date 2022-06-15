@@ -1,0 +1,6 @@
+cisco.yml
+Muestra por pantalla los output
+
+cisco1.yml
+Muestra algunas salida en pantalla
+Te guarda en formato yml el running config de los equipos

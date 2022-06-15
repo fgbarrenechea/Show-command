@@ -1,0 +1,27 @@
+---
+- name: Gather information from routers
+  hosts: ROUTERS
+  gather_facts: no
+
+  tasks:
+    - name: Gather Routers facts
+      cisco.ios.ios_facts:
+
+    - name: Display Device Version
+      debug:
+        msg: "The IOS version is: {{ ansible_net_version }}"
+
+    - name: Show Device Serial Number
+      debug:
+        msg: "The serial number is:{{ ansible_net_serialnum }}"
+
+    - name: Display Running config
+      cisco.ios.ios_command:
+        commands: show running-config
+      register: run_conf
+        
+    - name: Copy Config to file
+      copy:
+        content: "{{ run_conf | to_nice_yaml }}"
+        dest: "{{ playbook_dir }}/{{ inventory_hostname }}.yml"
+...

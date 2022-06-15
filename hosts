@@ -1,0 +1,11 @@
+[ROUTERS]
+192.168.0.[243:245]
+# 192.168.0.243
+
+[ROUTERS:vars] # Variables que se aplican solo al grupo ROUTERS
+ansible_become=true
+ansible_network_os=ios
+ansible_user=cisco
+ansible_password=cisco
+ansible_connection=network_cli
+ansible_ssh_private_key_file=~/Downloads/key

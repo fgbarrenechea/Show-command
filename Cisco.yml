@@ -1,0 +1,35 @@
+---
+- hosts: ROUTERS
+  name: Show commands
+  gather_facts: false
+
+  tasks:
+    - name: Muestra la running config
+      cisco.ios.ios_command:
+        commands: show running-config
+      #register: output1
+
+    - name: Muestra la version
+      cisco.ios.ios_command:
+        commands: show version
+
+    - name: Muestra un resumen de las interfaces
+      cisco.ios.ios_command:
+        commands:
+          show ip interface brief | excl una
+      register: output1
+
+    - name: Muestra la tabla de ruteo
+      cisco.ios.ios_command:
+        commands:
+          sh ip route
+      register: output2
+
+    - name: Print Interface brief solo con ip asignadas
+      debug:
+        var: output1.stdout_lines
+
+    - name: Print Tabla de ruteo
+      debug:
+        var: output2.stdout_lines
+...
